@@ -1,17 +1,16 @@
 #!/bin/bash
 
-#This scripts checks with pattern project 2019
+lines=()
+while IFS= read -r line; do
+    lines+=( "$line" )
+done < <( git branch )
 
-first_day=0 #first sprint was in first day
+for element in "${lines[@]}"
+do
+	if [[ $element == *"$1"* ]]; then
+	    branch="${element#"${element%%[![:space:]]*}"}"
+	    branch="${branch%"${branch##*[![:space:]]}"}"   
+	  git checkout "${branch}"
+	fi	
+done
 
-day_of_year=$(date +%j ) 
-day_base=$(expr $day_of_year - $first_day)
-
-reduce=$(expr $day_base % 14)
-
-target_day=$(date -d "-$reduce days")
-DAY=$(date -d "$target_day" '+%d')
-MONTH=$(date -d "$target_day" '+%m')
-proj=VFPTWEB2-
-echo checkout in features/s-$DAY$MONTH/$proj$1
-git checkout  features/s-$DAY$MONTH/$proj$1
