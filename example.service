@@ -1,0 +1,12 @@
+[Unit]
+Description=go-tv
+
+[Service]
+WorkingDirectory=/etc/go-tv/
+ExecStart=/etc/go-tv/go-tv
+Type=simple
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
