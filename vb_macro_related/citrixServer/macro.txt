@@ -1,0 +1,79 @@
+REM  *****  BASIC  *****
+Public Declare Sub Sleep Lib "kernel32" (ByVal Milliseconds As Long)
+Global timeStamp$
+Sub Main
+	
+
+	timeStamp = readNewRequest()
+   
+   Dim url$
+   
+   url = "http://hostservicesoap/context/PRLService"
+	
+	While True	
+		Sleep 500
+		If newRequest() Then
+			r = readFromFile()
+		
+		
+			Set xmlhttp = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+		    xmlhttp.open "POST", url, false,"user","password"
+		    xmlhttp.setRequestHeader "Content-Type", "text/xml; charset=utf-8" 
+		   	xmlhttp.setRequestHeader "SOAPAction", "http://hostservicesoap/context/PRLService"
+		   	xmlhttp.setRequestHeader "Connection" ,"Keep-Alive"
+		   	xmlhttp.setRequestHeader "Keep-Alive","timeout=500, max=1000"
+		   	xmlhttp.setRequestHeader "Accept-Encoding","br;q=1.0, gzip;q=0.8, *;q=0.1"
+		   	xmlhttp.setRequestHeader "Content-Encoding", "gzip"
+
+		   	
+		   	
+		    xmlhttp.send r
+		    xml = xmlhttp.responseXML.xml
+
+		    
+		    
+		
+			i = FreeFile()
+			Open "\\Client\D$\citrixServer\response.txt" For Output As i
+			Print #i, xml
+			Close #i
+
+			j = FreeFile()
+			Open "\\Client\D$\citrixServer\new_response.txt" For Output As j
+			Print #j, timeStamp
+			Close #j
+
+		EndIf
+	Wend
+	
+End Sub
+
+Function newRequest() as Boolean
+	n = readNewRequest()
+	If timeStamp <> n Then
+		timeStamp = n
+		newRequest = true
+	else
+		newRequest = False
+	EndIf
+End Function
+
+Function readNewRequest() as String 
+	Dim strFilename As String: strFilename = "\\Client\D$\citrixServer\new_request.txt"
+	Open strFilename for input as #1
+	Input #1, ShortText
+	Close #1
+	
+	readNewRequest = ShortText
+End Function
+
+Function readFromFile() as String
+
+	Dim strFilename As String: strFilename = "\\Client\D$\citrixServer\request.txt"
+	Open strFilename for input as #1
+	Input #1, ShortText
+	Close #1
+	
+	readFromFile = ShortText
+
+End Function
