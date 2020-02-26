@@ -47,9 +47,9 @@ Your browser does not support the canvas element.
 
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
-    var loops = 10000;
+    var loops = 15000;
     for(var i = 0 ; i <loops ; i++){
-        ctx.font = fontSize() + " System";
+        ctx.font = fontSize() + " Arial";
         ctx.fillStyle=colorZ(i,loops);
         ctx.fillText(icon(),getX(),getY());
     }
