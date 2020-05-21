@@ -1,5 +1,5 @@
 #!/bin/bash
 
-#replace string on file recursively
+#find string in files recursively
 
-find /directory/to/search -name "*.fileExtension" | xargs grep -l ".ocurrenceFoo"
+grep -rnw '/path/to/somewhere/' -e 'pattern'
