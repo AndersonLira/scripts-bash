@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link href="colors.css" rel="stylesheet">
+    </head>
+<body>
+    <div style="min-height: 5000cm">
+        <svg width="100%" height="100%" id="s">
+           
+          </svg>  
+    </div>
+</body>
+<script>
+    function generateColors(){
+        let result = [];
+        let base = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
+        //abb
+        for(var i in base){
+            for(var j in base){
+                result.push("#"+base[i]+base[j]+base[j]);
+            }
+        }
+        //bab
+        for(var i in base){
+            for(var j in base){
+                result.push("#"+base[j]+base[i]+base[j]);
+            }
+        }
+        //bba
+        for(var i in base){
+            for(var j in base){
+                result.push("#"+base[j]+base[j]+base[i]);
+            }
+        }
+        //bbb
+        for(var j in base){
+            result.push("#"+base[j]+base[j]+base[j]);
+        }
+
+        console.warn(result);
+        return result;
+    }
+    var e = document.getElementById("s");
+    let colors = generateColors();
+    let i = 0;
+    let j = 0;
+    for(var c in colors){
+        let color = colors[c];
+
+        let actual = e.innerHTML;
+        let x = (2*j);
+        let y = (2*i);
+        let yt = y + 1;
+        e.innerHTML = actual +  '<g><rect x="'+x+'cm" y="'+y+'cm" class="square" style="fill:'+color+';stroke-width:3;stroke:#fff" /><text x="'+x+'cm" y="'+yt+'cm" font-family="Verdana" font-size="20" fill="#fff">'+color+'</text></g>';
+        j++;
+        if(j > 9){
+            i++;
+            j=0;
+        }
+    }
+</script>   
+</html>
