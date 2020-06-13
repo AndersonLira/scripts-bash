@@ -1,0 +1,148 @@
+<html>
+    <body>
+        <svg id="s" width="720" height="720" xmlns="http://www.w3.org/2000/svg" style="background-color: black;">
+            
+          </svg>
+          <input id="txt" value="M 50 0 V50 H0 Q 0 0 50 0"/>
+          <button onclick="l()"><</button>
+          <button onclick="u()">^</button>
+          <button onclick="r()">></button>
+          <button onclick="d()">V</button>
+    </body>
+    <script>
+        var size = 50;
+        var px = 0;
+        var py = 0;
+        var action = "";
+        var lastId = 0;
+        var svg = document.getElementById("s");
+        var r = function(){
+            if(action == "L") return;
+            changeItem("R");
+            nextPosition("R");
+            drawSquare();
+        }
+        var d = function(){
+            if(action == "U") return;
+            changeItem("D");
+            nextPosition("D");
+            drawSquare();
+        }
+        var u = function(){
+            if(action == "D") return;
+            changeItem("U");
+            nextPosition("U");
+            drawSquare();
+        }
+        var l = function(){
+            if(action == "R") return;
+            changeItem("L");
+            nextPosition("L");
+            drawSquare();
+        }
+
+
+        var drawSquare =function(){
+            let d = 'M px py H hh V vv H hf Z'.replace("px",px)
+                .replace("py",py)
+                .replace("hh",px + size)
+                .replace("vv",py + size)
+                .replace("hf",px);
+            draw(d);
+        }
+        function draw(d){
+            let aux = svg.innerHTML;
+            lastId = uuid();
+            svg.innerHTML = aux + '<path id="' + lastId +'" d="'+d+'" stroke="white" fill="#84F"></path>';
+        }
+        var nextPosition = function(s){
+            action = s;
+            switch (s) {
+            case "R":
+                px = px + size;
+                break;
+            case "D":
+                py = py + size;
+                break;
+            case "U":
+                py = py - size;
+                break;
+            case "L":
+                px = px - size;
+                break;
+            }
+        }
+
+        function changeItem(type){
+            if(action == type) return;
+            lastId !=0 && document.getElementById(lastId).remove();
+            if((action == "R" && type == "D")|| (action == "U" && type == "L")){
+                let d = "M px py Q qx qy fx fy H retX Z ".replace("px",px)
+                    .replace("py",py)
+                    .replace("qx",px + size)
+                    .replace("qy",py)
+                    .replace("fx",px+size)
+                    .replace("fy",py + size)
+                    .replace("retX",px);
+                draw(d);
+            }
+            if((action == "R" && type == "U") || (action == "D" && type == "L")){
+                let d = "M px py H hx Q qx qy fx fy Z".replace("px",px)
+                    .replace("py",py)
+                    .replace("hx",px + size)
+                    .replace("qx",px+size)
+                    .replace("qy",py+size)
+                    .replace("fx",px)
+                    .replace("fy",py + size);
+                draw(d);
+            }
+            if((action == "L" && type == "U") || (action == "D" && type == "R")){
+                let d = "M px py H hx V vy Q qx qy fx fy"
+                    .replace("px",px).replace("py",py)
+                    .replace("hx",px + size)
+                    .replace("vy",py + size)
+                    .replace("qx",px).replace("qy",py + size)
+                    .replace("fx",px).replace("fy",py);
+                draw(d);
+            }
+            if((action == "U" && type == "R") || (action == "L" && type == "D")){
+                let d = "M px py V vy H hx Q qx qy fx fy"
+                    .replace("px",px + size)
+                    .replace("py",py)
+                    .replace("vy",py + size)
+                    .replace("hx",px)
+                    .replace("qx",px).replace("qy",py)
+                    .replace("fx",px + size)
+                    .replace("fy",py);
+                draw(d);
+            }
+            
+        }
+    document.onkeydown = checkKey;
+
+    function checkKey(e) {
+
+        e = e || window.event;
+
+        if (e.keyCode == '38') {
+            u();
+        }
+        else if (e.keyCode == '40') {
+            d();
+        }
+        else if (e.keyCode == '37') {
+            l();
+        }
+        else if (e.keyCode == '39') {
+            r();
+        }
+
+    }        
+    function uuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+    </script>
+</html>
