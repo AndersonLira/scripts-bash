@@ -75,7 +75,7 @@
 
         function changeItem(type){
             if(action == type) return;
-            lastId !=0 && document.getElementById(lastId).remove();
+            try{lastId !=0 && document.getElementById(lastId).remove();}catch(e){}
             if((action == "R" && type == "D")|| (action == "U" && type == "L")){
                 let d = "M px py Q qx qy fx fy H retX Z ".replace("px",px)
                     .replace("py",py)
