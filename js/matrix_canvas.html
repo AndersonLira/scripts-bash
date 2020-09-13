@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="1800" height="900"
+style="background-color: #000;">
+Your browser does not support the canvas element.
+</canvas>
+
+<script>
+    
+    var w = 1800;
+    var h = 900;
+    var icons = ['x','+'];
+    // var icons = [];
+    // for(var i = 0;i< 256;i++){
+    //     icons.push(String.fromCharCode(i))
+    // }
+    var greens = ['000','010','020','030','040','050','060','070','080','090','0A0','0B0','0C0','0D0','0E0','0F0'];
+    var blues = ['000','001','002','003','004','005','006','007','008','009','00A','00B','00C','00D','00E','00F'];
+    var reds = ['000','100','200','300','400','500','600','700','800','900','A00','B00','C00','D00','E00','F00'];
+    var colors = [greens,blues,reds];
+
+    var sizes = [12,14,16,18,20];
+
+    function colorGreen(){
+        let idx = Math.floor(Math.random()*greens.length);
+        return "#" + greens[idx];
+    }
+    function colorBlue(){
+        let idx = Math.floor(Math.random()*greens.length);
+        return "#" + blues[idx];
+    }
+    function color(){
+        return colorGreen();
+        return '#'+(Math.floor(Math.random()*16777215).toString(16));
+    }
+    function colorZ(idx,size){
+        //return "#" + (colors[Math.floor(Math.random()*colors.length)][Math.floor(idx/size * blues.length)]);
+        return "#" + (reds[Math.floor(idx/size * blues.length)]);
+    }
+    function icon(){
+        let idx = Math.floor(Math.random()*icons.length);
+        return icons[idx];
+    }
+    function fontSize(){
+        return "" + (sizes[Math.floor(Math.random()*sizes.length)]) + "px";
+    }
+    function getX(){
+        return Math.floor(Math.random()*w);
+    }
+    function getY(){
+        return Math.floor(Math.random()*h);
+    }
+
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    var loops = 15000;
+    for(var i = 0 ; i <loops ; i++){
+        ctx.font = fontSize() + " Arial";
+        ctx.fillStyle=colorZ(i,loops);
+        ctx.fillText(icon(),getX(),getY());
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="calculator.css">
+    </head>
+    <body>
+        <div style="background-color: #000;" id="t">
+        </div>
+
+    </body>
+    <script>
+        var icons = ['0','1'];
+        var greens = ['000','010','020','030','040','050','060','070','080','090','0A0','0B0','0C0','0D0','0E0','0F0'];
+        var blues = ['000','001','002','003','004','005','006','007','008','009','00A','00B','00C','00D','00E','00F'];
+        var sizes = [12,14,16,18,20];
+        function colorGreen(){
+            let idx = Math.floor(Math.random()*greens.length);
+            return "color:#" + greens[idx] + ";";
+        }
+        function colorBlue(){
+            let idx = Math.floor(Math.random()*greens.length);
+            return "color:#" + blues[idx] + ";";
+        }
+        function color(){
+            return colorBlue();
+            return 'color:#'+(Math.floor(Math.random()*16777215).toString(16))+";";
+        }
+        function icon(){
+            let idx = Math.floor(Math.random()*icons.length);
+            return icons[idx];
+        }
+        function fontSize(){
+            return "font-size:" + (sizes[Math.floor(Math.random()*sizes.length)]) + "px;";
+        }
+        var el = document.getElementById("t");
+        let div = document.createElement('div');
+        let tagType = 'div';
+        let defaultStyle='display:inline-block;';
+        for(var i = 1;i<3000;i++){
+            for(var j = 1;j<2;j++){
+                
+                let spanI = document.createElement(tagType);
+                let spanX = document.createElement(tagType);
+                let spanJ = document.createElement(tagType);
+                let spanE = document.createElement(tagType);
+                let spanM = document.createElement(tagType);
+                spanI.style= defaultStyle + color() + fontSize();
+                spanX.style= defaultStyle + color() + fontSize();
+                spanJ.style= defaultStyle + color() + fontSize();
+                spanE.style= defaultStyle + color() + fontSize();
+                spanM.style= defaultStyle + color() + fontSize();
+                spanI.innerHTML = icon();
+                spanX.innerHTML = icon();
+                spanJ.innerHTML = icon();
+                spanE.innerHTML = icon();
+                spanM.innerHTML = icon();
+                div.appendChild(spanI)
+                div.appendChild(spanX)
+                div.appendChild(spanJ)
+                div.appendChild(spanE)
+                div.appendChild(spanM)
+            }
+        }
+        el.appendChild(div);
+    </script>
+</html>
