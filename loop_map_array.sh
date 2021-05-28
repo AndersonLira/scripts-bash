@@ -12,6 +12,8 @@ done
 #map
 declare -A animals=( ["moo"]="cow" ["woof"]="dog" ["meow"]="cat" )
 
+animals['prw']='dove'
+
 echo "${animals[moo]}"
 
 for sound in "${!animals[@]}"
