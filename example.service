@@ -1,12 +1,17 @@
 [Unit]
-Description=go-tv
+Description=item-api
 
 [Service]
-WorkingDirectory=/etc/go-tv/
-ExecStart=/etc/go-tv/go-tv
+WorkingDirectory=/home/ubuntu/item-api
+ExecStart=/home/ubuntu/item-api/item-api
 Type=simple
 User=root
+EnvironmentFile=/home/ubuntu/env
 Group=root
+After=network.target
+Restart=always
+RestartSec=1
 
 [Install]
 WantedBy=multi-user.target
+
