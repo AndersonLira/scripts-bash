@@ -1,0 +1,19 @@
+body {
+    background-color: #33012b;
+}
+
+header {
+    background: red;
+}
+
+nav {
+    background: blue;
+}
+
+main {
+    background: green;
+}
+
+footer {
+    background: yellow;
+}

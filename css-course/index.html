@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #cecdcd;
+            color: #292929;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .container {
+            display: flex;
+            align-items: flex-end;
+            flex-direction: row;
+            background-color: rgb(198, 250, 198);
+            width: 300px;
+        }
+        div {
+            border: 2px solid;
+            flex: 1;
+        }
+        div :nth-child(2) {
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Training</h1>
+    <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+</body>
+</html>
